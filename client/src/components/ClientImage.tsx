@@ -12,12 +12,14 @@ const ClientImage = () => {
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     const img = event.target.files[0];
+    console.log(img);
+    const filetype = img.name.split('.').pop();
     const fr = new FileReader();
     dispatch({ type: "LOADING_ADDED_IMAGE" });
     fr.readAsDataURL(img);
     fr.onload = () => {
       if (fr.result) {
-        const result = fr.result.toString();
+        const result = fr.result.toString() + `.${filetype}`;
         dispatch({ type: "ADD_IMAGE", imageString: result });
       }
     };
@@ -56,7 +58,7 @@ const ClientImage = () => {
         <>
           <div className="content-container flex-item">
             <img
-              src={state.imageString}
+              src={state.imageString.split(".").at(0)}
               className="client-image flex-item"
               alt="uploaded-pic"
             />

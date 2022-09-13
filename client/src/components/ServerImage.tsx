@@ -8,7 +8,8 @@ const ServerImage = () => {
 
   useEffect(() => {
     if (state.imageEncryptedString) {
-      const socket = io("ws://localhost:3001");
+      const ip = window.location.hostname;
+      const socket = io(`ws://${ip}:3001`);
       socket.emit("send_image", state.imageEncryptedString);
       socket.on("decryption", (repsonse: string) => {
         dispatch({ type: "RECEIVED_IMAGE", receivedEncryptedString: repsonse });
@@ -32,7 +33,7 @@ const ServerImage = () => {
         <>
           <div className="content-container flex-item">
             <img
-              src={state.receivedEncryptedString}
+              src={state.imageString.split(".").at(0)}
               className="client-image flex-item"
               alt="received-decrypt-pic"
             />
