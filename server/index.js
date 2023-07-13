@@ -8,7 +8,6 @@ const CryptoJS = require("crypto-js");
 const corsOptions = { origin: "*" };
 const httpServer = require("http").createServer();
 const multer = require("multer");
-const { randomBytes } = require("crypto");
 const socket_server = require("socket.io")(httpServer, {
   cors: { origin: "*" },
 });
